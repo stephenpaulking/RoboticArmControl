@@ -1,0 +1,62 @@
+#include <stdbool.h>
+#include <unistd.h>
+#include <stdio.h> 
+#include "sys/alt_stdio.h"
+#include "system.h"
+#include "altera_avalon_pio_regs.h"
+#include "alt_types.h"
+#include "altera_avalon_lcd_16207_regs.h"
+#include "altera_avalon_lcd_16207.h"
+#include "lcd.h"
+void InitialiseLCD();
+void WriteToLCD(const char * str);
+int key;
+
+int main(void)
+{
+    usleep(15000);
+    InitialiseLCD();
+    WriteToLCD("Robot Arm\nProject");
+
+    //PWM1 - LEFT/RIGHT
+    //PWM2 - TOP ARM
+    //PWM3 - BOTTOM ARM
+    //PWM4 - GRIPPER
+    
+    /*IOWR_ALTERA_AVALON_PIO_DATA(PWM1_0_BASE,0xd2b); //- Max Right
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM2_0_BASE,0xc31); //- Max Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM3_0_BASE,0xc31); //- Max Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM4_0_BASE,0xc31); //- Max Open
+    usleep(1000000);
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM1_0_BASE,0x1800); //- Min Right
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM2_0_BASE,0x1700); //- Min Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM3_0_BASE,0x189c); //- Min Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM4_0_BASE,0x189c); //- Min Open
+    usleep(1000000);*/
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM1_0_BASE,0x1250); //- Mid Right
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM2_0_BASE,0x1250); //- Mid Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM3_0_BASE,0x1250); //- Mid Up
+    IOWR_ALTERA_AVALON_PIO_DATA(PWM4_0_BASE,0x1250); //- Mid Open
+    while(1)
+    {
+        key = IORD_ALTERA_AVALON_PIO_DATA(KEYPAD_0_BASE); //read keypad
+        
+        if (key == 0xFFFFFF99)
+        {
+            usleep(4100);
+            IOWR_ALTERA_AVALON_PIO_DATA(PWM1_0_BASE,0x1800); //- Min Right
+            IOWR_ALTERA_AVALON_PIO_DATA(PWM2_0_BASE,0x1700); //- Min Up
+            IOWR_ALTERA_AVALON_PIO_DATA(PWM3_0_BASE,0x189c); //- Min Up
+            IOWR_ALTERA_AVALON_PIO_DATA(PWM4_0_BASE,0x189c); //- Min Open
+            usleep(1000000);
+            ClearLCD();
+        }
+        else
+        {
+            //Do Nothing
+        }
+        
+        IOWR_ALTERA_AVALON_PIO_DATA(SEG7_BASE, key);
+    }
+return(0);
+}
