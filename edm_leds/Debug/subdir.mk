@@ -7,7 +7,12 @@
 # ********************************************************************** 
 C_SRCS += \
 ${addprefix ,\
-lcd.c \
+FREECTRL.c \
+KEYP.c \
+LCD.c \
+PWM.c \
+RAP.c \
+SEQ_CTRL.c \
 main.c \
 }
 

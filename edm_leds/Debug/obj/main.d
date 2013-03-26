@@ -37,4 +37,4 @@ obj/main.o: ../main.c \
   /altera/11.0/nios2eds/components/altera_hal/HAL/inc/sys/alt_llist.h \
   /altera/11.0/nios2eds/components/altera_hal/HAL/inc/priv/alt_dev_llist.h \
   /altera/11.0/nios2eds/components/altera_hal/HAL/inc/sys/alt_llist.h \
-  ../lcd.h
+  ../RAP.h
