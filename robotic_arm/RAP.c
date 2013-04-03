@@ -88,7 +88,7 @@ void RAP__Schedule ( void )
     {
         if (MenuInit == 0)                                  /* Perform only on entry */
         {
-            LCD__Write("Select a Mode\nusing the keypad");  /* Write to LCD */
+            LCD__Write("Select a Mode\nFREE or SEQ");       /* Write to LCD */
             ModeSelect = 0;                                 /* Reset the mode select flag  */
             MenuInit = 1;
         }

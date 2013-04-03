@@ -52,7 +52,7 @@ void SEQ_CTRL__Schedule( void )
     LCD__Write("Sequence Mode\nMain Menu");
     SEV_SEG__Write("RCST");
     usleep(5000000);
-    LCD__Write("C to Start New\nD to Recall Last");
+    LCD__Write("CLR to Start New\nRE to Recall");
     SEV_SEG__Clear();
     while(ModeContinue == 1)
     {
@@ -95,8 +95,13 @@ void SEQ_CTRL__SetSequence( void )
     
     PWM__Reset();
     
-    LCD__Write("Sequence Mode\nMake a move");
+    LCD__Write("Sequence Mode\nStarted");
+    
+    usleep(400000);
+    
+    LCD__Write("Make A Move\nPress Bk to Exit");
     usleep(2000);
+    
     while(StoreContinue == 1)
     {
         KeySelected = KEYP__GetState();
@@ -169,6 +174,8 @@ void SEQ_CTRL__Clear(void)
 
 void SEQ_CTRL__Recall(void)
 {
+    LCD__Write("Sequence Recall\nIn Progress");
+    
     PWM__Reset();
     
     usleep(300000);
@@ -188,9 +195,9 @@ void SEQ_CTRL__BaseMove(void)
 {
     MoveComplete = 0;
     
-    LCD__Write("Base Move\nPress 4 or 6");
+    LCD__Write("Base Move\nPress L or R");
     usleep(300000);
-    LCD__Write("A-To Accept Move\nB-To Reject Move");
+    LCD__Write("A - Accept Move\nRJ - Reject Move");
     usleep(2000);
     while(MoveComplete == 0)
     {
@@ -232,9 +239,9 @@ void SEQ_CTRL__ShoulderMove(void)
 {
     MoveComplete = 0;
     
-    LCD__Write("Shoulder Move\nPress 2 or 8");
+    LCD__Write("Shoulder Move\nPress Us or Ds");
     usleep(300000);
-    LCD__Write("A-To Accept Move\nB-To Reject Move");
+    LCD__Write("A - Accept Move\nRJ - Reject Move");
     usleep(2000);
     while(MoveComplete == 0)
     {
@@ -276,9 +283,9 @@ void SEQ_CTRL__ElbowMove(void)
 {
     MoveComplete = 0;
     
-    LCD__Write("Elbow Move\nPress 1 or 7");
+    LCD__Write("Elbow Move\nPress Ue or De");
     usleep(300000);
-    LCD__Write("A-To Accept Move\nB-To Reject Move");
+    LCD__Write("A - Accept Move\nRJ - Reject Move");
     usleep(2000);
     while(MoveComplete == 0)
     {
@@ -320,9 +327,9 @@ void SEQ_CTRL__GripMove(void)
 {
     MoveComplete = 0;
     
-    LCD__Write("Grip Move\nPress 1 or 7");
+    LCD__Write("Grip Move\nPress Oj or Cj");
     usleep(300000);
-    LCD__Write("A-To Accept Move\nB-To Reject Move");
+    LCD__Write("A - Accept Move\nRJ - Reject Move");
     usleep(2000);
     while(MoveComplete == 0)
     {
